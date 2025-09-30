@@ -72,5 +72,5 @@ def main():
     game.show()
     sys.exit(app.exec())
 
-if __name__ == "__main__":
+if __name__ == "__main__": #kommenti
     main()
