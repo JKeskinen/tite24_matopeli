@@ -67,30 +67,32 @@ class SnakeGame(QGraphicsView):
             self.start_game()
             return
 
-        self.snake.insert(0, new_head)
-        
-        if new_head == self.ruoka:
-            self.ruoka = self.lisaa_ruoka()
-        else:
-            self.snake.pop()
-
+        self.snake.insert(0, new_head)      
         if new_head == self.food:
             self.score += 1
+            self.food = self.add_food()
+        else:
+            self.snake.pop()
+            
 
         self.print_game()
 
     def print_game(self):
         self.scene().clear()
 
-        rx, ry = self.ruoka
-        self.scene().addRect(rx * CELL_SIZE, ry * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.red), QBrush(Qt.red))
+        for segment in self.snake:
+            x, y = segment
+            self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.black))
+        
+        # rx, ry = self.food
+        # self.scene().addRect(rx * CELL_SIZE, ry * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.red), QBrush(Qt.red))
 
         for segment in self.snake:
             x, y = segment
 
         # print food
         self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.black))
-
+        fx, fy = self.food
         self.scene().addRect(fx * CELL_SIZE, fy * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.black))
 
         self.scene().addText(f"Score: {self.score}", QFont("Arial", 12))
@@ -104,10 +106,10 @@ class SnakeGame(QGraphicsView):
     def start_game(self):
         self.direction = Qt.Key_Right
         self.snake = [(5, 5), (5, 6), (5, 7)]
-        self.ruoka = self.lisaa_ruoka()
+        self.food = self.add_food()
         self.timer.start(300)
-    
-    def lisaa_ruoka(self):
+
+    def add_food(self):
         while True:
             x = random.randint(0, GRID_WIDTH - 1)
             y = random.randint(0, GRID_HEIGHT - 1)
