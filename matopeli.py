@@ -50,12 +50,18 @@ class SnakeGame(QGraphicsView):
 
         self.snake.insert(0, new_head)
         
-        self.snake.pop()
+        if new_head == self.ruoka:
+            self.ruoka = self.lisaa_ruoka()
+        else:
+            self.snake.pop()
 
         self.print_game()
 
     def print_game(self):
         self.scene().clear()
+
+        rx, ry = self.ruoka
+        self.scene().addRect(rx * CELL_SIZE, ry * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.red), QBrush(Qt.red))
 
         for segment in self.snake:
             x, y = segment
@@ -64,7 +70,15 @@ class SnakeGame(QGraphicsView):
     def start_game(self):
         self.direction = Qt.Key_Right
         self.snake = [(5, 5), (5, 6), (5, 7)]
+        self.ruoka = self.lisaa_ruoka()
         self.timer.start(300)
+    
+    def lisaa_ruoka(self):
+        while True:
+            x = random.randint(0, GRID_WIDTH - 1)
+            y = random.randint(0, GRID_HEIGHT - 1)
+            if (x, y) not in self.snake:
+                return (x, y)
 
 def main():
     app = QApplication(sys.argv)
