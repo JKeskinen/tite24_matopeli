@@ -43,7 +43,7 @@ class SnakeGame(QGraphicsView):
         start_text.setPos(text_x, GRID_HEIGHT * CELL_SIZE / 2)
 
     def keyPressEvent(self, event):
-        # starting game by button
+        
         key = event.key()
         if not self.game_started:
             if key == event.key():
