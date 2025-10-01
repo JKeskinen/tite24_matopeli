@@ -63,8 +63,7 @@ class SnakeGame(QGraphicsView):
 
         #pelialueen rajat
         if new_head in self.snake or not (0 <= new_head[0] < GRID_WIDTH) or not (0 <= new_head[1] < GRID_HEIGHT):
-            self.timer.stop()
-            self.start_game()
+            self.game_over()
             return
 
         self.snake.insert(0, new_head)      
@@ -97,7 +96,10 @@ class SnakeGame(QGraphicsView):
 
         self.scene().addText(f"Score: {self.score}", QFont("Arial", 12))
 
-
+    def game_over(self):
+        self.timer.stop()
+        self.scene().clear()
+        self.scene().addText("Game Over!", QFont("Arial", 16))
             
 
 
