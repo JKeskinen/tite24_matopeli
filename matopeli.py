@@ -77,6 +77,9 @@ class SnakeGame(QGraphicsView):
         #pelialueen rajat
         if new_head in self.snake or not (0 <= new_head[0] < GRID_WIDTH) or not (0 <= new_head[1] < GRID_HEIGHT):
             self.game_over()
+            self.game_started = False
+            self.init_screen()
+            self.score = 0
             return
 
         self.snake.insert(0, new_head)      
