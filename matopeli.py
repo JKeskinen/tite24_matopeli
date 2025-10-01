@@ -17,6 +17,9 @@ filename = "crlaugh1.wav"
 effect = QSoundEffect()
 effect.setSource(QUrl.fromLocalFile(filename))
 # possible bug: QSoundEffect::Infinite cannot be used in setLoopCount
+filename1 = "goblin.wav"
+effect1 = QSoundEffect()
+effect1.setSource(QUrl.fromLocalFile(filename1))
 
 class SnakeGame(QGraphicsView):
     def __init__(self):
@@ -84,6 +87,7 @@ class SnakeGame(QGraphicsView):
 
         #pelialueen rajat
         if new_head in self.snake or not (0 <= new_head[0] < GRID_WIDTH) or not (0 <= new_head[1] < GRID_HEIGHT):
+            effect1.play()
             self.game_over()
             self.game_started = False
             self.init_screen()
