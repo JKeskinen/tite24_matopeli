@@ -12,6 +12,11 @@ from PySide6.QtMultimedia import QSoundEffect
 CELL_SIZE = 20
 GRID_WIDTH = 20
 GRID_HEIGHT = 15
+CELL_COLORS = {
+    'snake': Qt.green,
+    'food': Qt.red,
+    'background': Qt.white
+}
 
 filename = "crlaugh1.wav"
 effect = QSoundEffect()
@@ -116,18 +121,15 @@ class SnakeGame(QGraphicsView):
 
         for segment in self.snake:
             x, y = segment
-            self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.black))
-        
-        # rx, ry = self.food
-        # self.scene().addRect(rx * CELL_SIZE, ry * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.red), QBrush(Qt.red))
+            self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(CELL_COLORS['snake']), QBrush(CELL_COLORS['snake']))
 
         for segment in self.snake:
             x, y = segment
 
         # print food
-        self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.black))
+        self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(CELL_COLORS['snake']), QBrush(CELL_COLORS['snake']))
         fx, fy = self.food
-        self.scene().addRect(fx * CELL_SIZE, fy * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.black))
+        self.scene().addRect(fx * CELL_SIZE, fy * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(CELL_COLORS['food']), QBrush(CELL_COLORS['food']))
 
         self.scene().addText(f"Score: {self.score}", QFont("Arial", 12))
 
