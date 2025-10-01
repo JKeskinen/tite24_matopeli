@@ -10,7 +10,6 @@ from playsound import playsound
 CELL_SIZE = 20
 GRID_WIDTH = 20
 GRID_HEIGHT = 15
-SOUNDEFFECT = playsound("crlaugh.mp3")
 CELL_COLORS = {
     'snake': Qt.green,
     'food': Qt.red,
@@ -92,7 +91,7 @@ class SnakeGame(QGraphicsView):
         self.snake.insert(0, new_head)      
         if new_head == self.food:
             self.score += 1
-            SOUNDEFFECT
+            playsound("crlaugh1.wav")
             self.food = self.spawn_food()
                 # for levels
             if self.score == self.level_limit:
@@ -124,6 +123,7 @@ class SnakeGame(QGraphicsView):
         self.scene().addText(f"Score: {self.score}", QFont("Arial", 12))
 
     def game_over(self):
+        
         self.timer.stop()
         self.scene().clear()
         self.scene().addText("Game Over!", QFont("Arial", 16))
