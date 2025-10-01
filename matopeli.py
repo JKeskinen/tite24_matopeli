@@ -39,6 +39,7 @@ class SnakeGame(QGraphicsView):
     def update_game(self):
         head_x, head_y = self.snake[0]
 
+
         if self.direction == Qt.Key_Left:
             new_head = (head_x - 1, head_y)
         elif self.direction == Qt.Key_Right:
@@ -48,8 +49,14 @@ class SnakeGame(QGraphicsView):
         elif self.direction == Qt.Key_Down:
             new_head = (head_x, head_y + 1)
 
+        #pelialueen rajat
+        if new_head in self.snake or not (0 <= new_head[0] < GRID_WIDTH) or not (0 <= new_head[1] < GRID_HEIGHT):
+            self.timer.stop()
+            self.start_game()
+            return
+
         self.snake.insert(0, new_head)
-        
+
         self.snake.pop()
 
         self.print_game()
