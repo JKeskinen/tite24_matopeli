@@ -4,11 +4,13 @@ import random
 from PySide6.QtWidgets import QApplication, QGraphicsView, QGraphicsScene, QMenu
 from PySide6.QtGui import QPainter, QPen, QBrush, QFont
 from PySide6.QtCore import Qt, QTimer
+from playsound import playsound
 
 # vakiot
 CELL_SIZE = 20
 GRID_WIDTH = 20
 GRID_HEIGHT = 15
+SOUNDEFFECT = playsound("crlaugh.mp3")
 CELL_COLORS = {
     'snake': Qt.green,
     'food': Qt.red,
@@ -90,6 +92,7 @@ class SnakeGame(QGraphicsView):
         self.snake.insert(0, new_head)      
         if new_head == self.food:
             self.score += 1
+            SOUNDEFFECT
             self.food = self.spawn_food()
                 # for levels
             if self.score == self.level_limit:
