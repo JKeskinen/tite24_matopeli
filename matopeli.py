@@ -4,7 +4,9 @@ import random
 from PySide6.QtWidgets import QApplication, QGraphicsView, QGraphicsScene, QMenu
 from PySide6.QtGui import QPainter, QPen, QBrush, QFont
 from PySide6.QtCore import Qt, QTimer
-from playsound import playsound
+from PySide6.QtCore import QUrl
+from PySide6.QtGui import QGuiApplication
+from PySide6.QtMultimedia import QSoundEffect
 
 # vakiot
 CELL_SIZE = 20
@@ -15,6 +17,11 @@ CELL_COLORS = {
     'food': Qt.red,
     'background': Qt.white
 }
+
+filename = "crlaugh1.wav"
+effect = QSoundEffect()
+effect.setSource(QUrl.fromLocalFile(filename))
+# possible bug: QSoundEffect::Infinite cannot be used in setLoopCount
 
 class SnakeGame(QGraphicsView):
     def __init__(self):
@@ -91,7 +98,7 @@ class SnakeGame(QGraphicsView):
         self.snake.insert(0, new_head)      
         if new_head == self.food:
             self.score += 1
-            playsound("crlaugh1.wav")
+            effect.play()
             self.food = self.spawn_food()
                 # for levels
             if self.score == self.level_limit:
